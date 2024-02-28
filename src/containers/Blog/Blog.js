@@ -11,7 +11,8 @@ class Blog extends Component {
     
     state = {
         posts: [],
-        selectedPost: {title: 'title', author: 'author', content: 'content'}
+        selectedPost: {title: 'title', author: 'author', content: 'content'},
+        selectedPostId: null
     }
 
     componentDidMount () {
@@ -42,10 +43,15 @@ class Blog extends Component {
         console.log ('selected post' + this.state.posts[index]);
     }
 
+    postSelectHandler = (id) => {
+        this.setState({selectedPostId: id});
+    }
+
     render () {
 
         const posts = this.state.posts.map((p,index) => {
-            return <Post selectedPost={p} myClick={ ()=> this.showPost(index)}/>
+            return <Post selectedPost={p} myClick={ ()=> this.showPost(index)}
+                    clicked = {() => this.postSelectHandler(p.id)}/>
         }
         );
 
@@ -55,7 +61,7 @@ class Blog extends Component {
                     {posts}
                 </section>
                 <section>
-                    <FullPost selectedPost={this.state.selectedPost}/>
+                    <FullPost selectedPost={this.state.selectedPost} id={this.state.selectedPostId}/>
                 </section>
                 <section>
                     <NewPost addNewPost={this.addNewPost}/>
