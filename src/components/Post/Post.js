@@ -1,10 +1,11 @@
 import './Post.css'
 
 const Post = (props) => (
-    <article className="Post" onClick={props.myclick}>
-        <h1>{props.title}</h1>
+    <article className="Post" onClick={props.myClick}>
+        <h1>{props.selectedPost.title}</h1>
+        <p>{props.selectedPost.body}</p>
         <div className="Info">
-            <div className="Author">{props.author}</div>
+            <div className="Author">{props.selectedPost.author}</div>
         </div>
     </article>
 )

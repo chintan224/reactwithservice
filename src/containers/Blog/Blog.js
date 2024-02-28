@@ -10,7 +10,8 @@ import './Blog.css';
 class Blog extends Component {
     
     state = {
-        posts: []
+        posts: [],
+        selectedPost: {title: 'title', author: 'author', content: 'content'}
     }
 
     componentDidMount () {
@@ -28,10 +29,23 @@ class Blog extends Component {
         })
     }
 
+    addNewPost = (post) =>{
+        console.log('In addNewPost: ' + post.title + ' ' + post.body +  ' ' + post.author);
+        const revisedPosts = this.state.posts.slice(0,3);
+        revisedPosts.unshift(post);    
+        this.setState({posts: revisedPosts})
+    }
+
+    showPost(index) {
+        console.log ('passed index in showPost' + index);
+        this.setState({selectedPost: this.state.posts[index]});
+        console.log ('selected post' + this.state.posts[index]);
+    }
+
     render () {
 
-        const posts = this.state.posts.map(post => {
-            return <Post title={post.title} author={post.author}/>
+        const posts = this.state.posts.map((p,index) => {
+            return <Post selectedPost={p} myClick={ ()=> this.showPost(index)}/>
         }
         );
 
@@ -41,10 +55,10 @@ class Blog extends Component {
                     {posts}
                 </section>
                 <section>
-                    <FullPost />
+                    <FullPost selectedPost={this.state.selectedPost}/>
                 </section>
                 <section>
-                    <NewPost />
+                    <NewPost addNewPost={this.addNewPost}/>
                 </section>
             </div>
         );
