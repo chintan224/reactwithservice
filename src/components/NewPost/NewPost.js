@@ -20,6 +20,7 @@ class NewPost extends Component {
         .then(response => {
             console.log(response.data);
         });
+        //this.addPost(); to do
     }
 
     addPost = ()=> {
